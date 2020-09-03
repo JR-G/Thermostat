@@ -31,4 +31,14 @@ describe('Thermostat', function() {
       expect(thermostat.getCurrentTemp()).toEqual(10)
     });
   });
+
+  describe('powerSaving', function() {
+    it('sets maximum temp to 25', function() {
+      thermostat.powerSave("on")
+      expect(function() { thermostat.increaseTemp(6); } ).toThrowError('unable to increase above 25 degrees.')
+      expect(thermostat.getCurrentTemp()).toEqual(25)
+
+    });
+  });
+
 });
