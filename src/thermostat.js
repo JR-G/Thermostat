@@ -8,7 +8,10 @@ class Thermostat {
 
   getCurrentTemp() {
     return this.temp;
+  };
 
+  increaseTemp(by) {
+    this.temp += by
   };
 
 };
