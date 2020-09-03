@@ -23,6 +23,12 @@ describe('Thermostat', function() {
     it('decreases the current temp', function(){
       thermostat.decreaseTemp(5);
       expect(thermostat.getCurrentTemp()).toEqual(15)
-    })
+    });
+
+    it('does not drop below 10', function() {
+      // thermostat.decreaseTemp(11);
+      expect(function() { thermostat.decreaseTemp(11); } ).toThrowError('unable to lower below 10 degrees.');
+      expect(thermostat.getCurrentTemp()).toEqual(10)
+    });
   });
 });
