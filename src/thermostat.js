@@ -14,4 +14,8 @@ class Thermostat {
     this.temp += by
   };
 
+  decreaseTemp(by) {
+    this.temp -= by
+  };
+
 };
