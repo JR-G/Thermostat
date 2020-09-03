@@ -6,4 +6,9 @@ class Thermostat {
     this.temp = 20;
   };
 
+  getCurrentTemp() {
+    return this.temp;
+
+  };
+
 };
