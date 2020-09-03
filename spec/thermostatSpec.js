@@ -26,7 +26,6 @@ describe('Thermostat', function() {
     });
 
     it('does not drop below 10', function() {
-      // thermostat.decreaseTemp(11);
       expect(function() { thermostat.decreaseTemp(11); } ).toThrowError('unable to lower below 10 degrees.');
       expect(thermostat.getCurrentTemp()).toEqual(10)
     });
@@ -34,11 +33,15 @@ describe('Thermostat', function() {
 
   describe('powerSaving', function() {
     it('sets maximum temp to 25', function() {
-      thermostat.powerSave("on")
       expect(function() { thermostat.increaseTemp(6); } ).toThrowError('unable to increase above 25 degrees.')
       expect(thermostat.getCurrentTemp()).toEqual(25)
-
     });
   });
-
+  describe('powerSavingOff', function() {
+    it('sets maximum temp to 32', function() {
+      thermostat.switchPowerSaveOff();
+      expect(function() { thermostat.increaseTemp(13); } ).toThrowError('unable to increase above 32 degrees.')
+      expect(thermostat.getCurrentTemp()).toEqual(32)
+    });
+  });
 });

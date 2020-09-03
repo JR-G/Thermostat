@@ -27,11 +27,18 @@ class Thermostat {
     return this.temp;
   };
 
-  isMaximumTemp() {
+  isMaximumTemp(amount) {
     if(this.isPowerSaveOn() === false) {
-      return this.temp === this.DEF_MAX_TEMPERATURE;
+      return (this.temp + amount) > this.DEF_MAX_TEMPERATURE;
     }
-    return this.temp === this.PS_MAX_TEMPERATURE;
+    return (this.temp + amount) > this.PS_MAX_TEMPERATURE;
+  };
+
+  theMaximumTemp() {
+    if(this.isPowerSaveOn() === false) {
+      return this.DEF_MAX_TEMPERATURE;
+    }
+    return this.PS_MAX_TEMPERATURE;
   };
 
   isMinimumTemp() {
@@ -39,7 +46,11 @@ class Thermostat {
   };
 
   increaseTemp(by) {
-
+    if(this.isMaximumTemp(by)) {
+      this.temp = this.theMaximumTemp();
+      throw new Error(`unable to increase above ${this.theMaximumTemp()} degrees.`)
+    }
+    this.temp += by
   };
 
   decreaseTemp(by) {
