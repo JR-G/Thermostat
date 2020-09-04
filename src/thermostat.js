@@ -5,7 +5,9 @@ class Thermostat {
     this.MIN_TEMPERATURE = 10;
     this.powerSavingMode = true;
     this.PS_MAX_TEMPERATURE = 25;
-    this.DEF_MAX_TEMPERATURE = 32;
+    this.PS_OFF_MAX_TEMPERATURE = 32;
+    this.MEDIUM_ENERGY_USAGE_LIMIT = 18;
+    this.HIGH_ENERGY_USAGE_LIMIT = 25;
   };
 
   isPowerSaveOn() {
@@ -27,7 +29,7 @@ class Thermostat {
 
   isMaximumTemp(amount) {
     if(this.isPowerSaveOn() === false) {
-      return (this.temp + amount) > this.DEF_MAX_TEMPERATURE
+      return (this.temp + amount) > this.PS_OFF_MAX_TEMPERATURE
     }
     return (this.temp + amount) > this.PS_MAX_TEMPERATURE
   };
@@ -38,7 +40,7 @@ class Thermostat {
 
   theMaximumTemp() {
     if(this.isPowerSaveOn() === false) {
-      return this.DEF_MAX_TEMPERATURE
+      return this.PS_OFF_MAX_TEMPERATURE
     }
     return this.PS_MAX_TEMPERATURE
   };
@@ -58,4 +60,13 @@ class Thermostat {
     } 
     this.temp -= amount
   };
+
+  energyUsage() {
+    if (this.temp < this.MEDIUM_ENERGY_USAGE_LIMIT) {
+      return 'low-usage';
+    } else if (this.temp <= this.HIGH_ENERGY_USAGE_LIMIT) {
+      return 'medium-usage';
+    }
+    return 'high-usage';
+  }
 };
