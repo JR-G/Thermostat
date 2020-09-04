@@ -1,5 +1,3 @@
-'use strict';
-
 class Thermostat {
 
   constructor() {
@@ -29,37 +27,35 @@ class Thermostat {
 
   isMaximumTemp(amount) {
     if(this.isPowerSaveOn() === false) {
-      return (this.temp + amount) > this.DEF_MAX_TEMPERATURE;
+      return (this.temp + amount) > this.DEF_MAX_TEMPERATURE
     }
-    return (this.temp + amount) > this.PS_MAX_TEMPERATURE;
+    return (this.temp + amount) > this.PS_MAX_TEMPERATURE
+  };
+
+  isMinimumTemp(amount) {
+    return (this.temp - amount) < this.MIN_TEMPERATURE
   };
 
   theMaximumTemp() {
     if(this.isPowerSaveOn() === false) {
-      return this.DEF_MAX_TEMPERATURE;
+      return this.DEF_MAX_TEMPERATURE
     }
-    return this.PS_MAX_TEMPERATURE;
+    return this.PS_MAX_TEMPERATURE
   };
 
-  isMinimumTemp() {
-    this.temp = this.MIN_TEMPERATURE
-  };
-
-  increaseTemp(by) {
-    if(this.isMaximumTemp(by)) {
-      this.temp = this.theMaximumTemp();
+  increaseTemp(amount = 1) {
+    if(this.isMaximumTemp(amount)) {
+      this.temp = this.theMaximumTemp()
       throw new Error(`unable to increase above ${this.theMaximumTemp()} degrees.`)
     }
-    this.temp += by
+    this.temp += amount
   };
 
-  decreaseTemp(by) {
-    if(this.temp - by >= this.MIN_TEMPERATURE) {
-      this.temp -= by
-    } else {
-      this.isMinimumTemp()
-      throw new Error('unable to lower below 10 degrees.');
-    };
+  decreaseTemp(amount = 1) {
+    if(this.isMinimumTemp(amount)) {
+      this.temp = this.MIN_TEMPERATURE
+      throw new Error(`unable to lower below ${this.MIN_TEMPERATURE} degrees.`)
+    } 
+    this.temp -= amount
   };
-
 };

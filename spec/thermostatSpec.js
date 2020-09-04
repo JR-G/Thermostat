@@ -1,13 +1,11 @@
-'use strict';
-
 describe('Thermostat', function() {
-  var thermostat;
+  let thermostat;
 
   beforeEach(function() {
     thermostat = new Thermostat();
   });
 
-  it('starting temp is 20c', function() {
+  it('starting temp is 20', function() {
     expect(thermostat.getCurrentTemp()).toEqual(20);
 
   });
@@ -31,7 +29,7 @@ describe('Thermostat', function() {
     });
   });
 
-  describe('powerSaving is on', function() {
+  describe('switchPowerSaveOn', function() {
     it('sets maximum temp to 25', function() {
       expect(function() { thermostat.increaseTemp(6); } ).toThrowError('unable to increase above 25 degrees.')
       expect(thermostat.getCurrentTemp()).toEqual(25)
