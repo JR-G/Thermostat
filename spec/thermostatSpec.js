@@ -35,7 +35,14 @@ describe('Thermostat', function() {
       expect(thermostat.getCurrentTemp()).toEqual(25)
     });
   });
-  describe('powerSavingOff', function() {
+  describe('powerSaveOff', function() {
+    it('can switch power saving back on', function() {
+      thermostat.switchPowerSaveOff()
+      expect(thermostat.isPowerSaveOn()).toBe(false);
+      thermostat.switchPowerSaveOn()
+      expect(thermostat.isPowerSaveOn()).toBe(true);
+    });
+    
     it('sets maximum temp to 32', function() {
       thermostat.switchPowerSaveOff();
       expect(function() { thermostat.increaseTemp(13); } ).toThrowError('unable to increase above 32 degrees.')
